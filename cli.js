@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { writeFileSync } = require("fs");
+const { writeFileSync, mkdirSync } = require("fs");
 const { sep, relative, dirname } = require("path");
 const meow = require("meow");
 const spritesheet = require(".");
@@ -18,7 +18,11 @@ const run = async (cli) => {
         return;
     }
 
-    const { json, buffer } = await spritesheet(input, flags);
+    const { json, buffer } = await spritesheet(paths, flags);
+
+    mkdirSync(flags.path, {
+        recursive: true,
+    });
 
     const imagePath = `${flags.path}${sep}${flags.name}.${flags.imageFormat}`;
     const jsonPath = `${flags.path}${sep}${flags.name}.json`;
