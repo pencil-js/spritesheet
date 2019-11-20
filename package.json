@@ -1,0 +1,35 @@
+{
+    "name": "@pencil.js/spritesheet",
+    "version": "0.1.0",
+    "description": "Pack some images into a spritesheet.",
+    "main": "index.js",
+    "bin": {
+        "spritesheet": "./cli.js"
+    },
+    "scripts": {
+        "test": "ava"
+    },
+    "eslintConfig": {
+        "extends": "@gmartigny/eslint-config"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pencil-js/spritesheet.git"
+    },
+    "author": "GMartigny",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/pencil-js/spritesheet/issues"
+    },
+    "homepage": "https://github.com/pencil-js/spritesheet",
+    "dependencies": {
+        "bin-pack": "^1.0.2",
+        "canvas": "^2.6.0",
+        "meow": "^5.0.0"
+    },
+    "devDependencies": {
+        "@gmartigny/eslint-config": "^1.3.1",
+        "ava": "^2.4.0",
+        "eslint": "^6.6.0"
+    }
+}
