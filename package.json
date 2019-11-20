@@ -16,6 +16,9 @@
         "type": "git",
         "url": "git+https://github.com/pencil-js/spritesheet.git"
     },
+    "publishConfig": {
+        "access": "public"
+    },
     "author": "GMartigny",
     "license": "MIT",
     "bugs": {
