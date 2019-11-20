@@ -37,38 +37,43 @@ module.exports = async (paths, userOptions) => {
 
     const images = await Promise.all(loads);
 
-    const result = pack(images);
+    const { items, width, height } = pack(images);
 
-    const canvas = createCanvas(result.width, result.height);
+    const canvas = createCanvas(width, height);
     const context = canvas.getContext("2d");
 
-    result.items.forEach(({ x, y, item }) => context.drawImage(item, x, y));
+    items.forEach(({ x, y, item }) => context.drawImage(item, x, y));
 
     const json = {
         meta: {
             app: homepage,
             version,
+            size: {
+                w: width,
+                h: height,
+            },
+            scale: 1,
         },
         frames: paths.map((path, index) => {
-            const { x, y, width, height } = result.items[index];
+            const { x, y, width: w, height: h } = items[index];
             return {
                 frame: {
                     x,
                     y,
-                    width,
-                    height,
-                    rotated: false,
-                    trimmed: false,
-                    spriteSourceSize: {
-                        x: 0,
-                        y: 0,
-                        width,
-                        height,
-                    },
-                    sourceSize: {
-                        width,
-                        height,
-                    },
+                    w,
+                    h,
+                },
+                rotated: false,
+                trimmed: false,
+                spriteSourceSize: {
+                    x: 0,
+                    y: 0,
+                    w,
+                    h,
+                },
+                sourceSize: {
+                    w,
+                    h,
                 },
             };
         }),
