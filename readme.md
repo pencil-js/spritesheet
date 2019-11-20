@@ -20,14 +20,15 @@ const { json, image } = await spritesheet(files);
 
 ### Options
 
-        --path, -p          Path where to output files  (default: ./)
-        --name, -n          Name for the files          (default: spritesheet)
-        --imageFormat, -f   Result image format         (default: png)
-        --silent, -s        Don't log success
+    --path, -p          Path where to output files      (default: ./)
+    --name, -n          Name for the files              (default: spritesheet)
+    --imageFormat, -f   Result image format             (default: png)
+    --cwd, -c           Base directory for all images   (default: ./)
+    --silent, -s        Don't log success               (default: false)
 
 ### Example
 
-    $ spritesheet src/images/*.png -p dist/assets -n icons
+    $ spritesheet *.png -cwd ./src/images/ --path ./dist/assets --name icons
 
 ## License
 

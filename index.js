@@ -54,9 +54,9 @@ module.exports = async (paths, userOptions) => {
             },
             scale: 1,
         },
-        frames: paths.map((path, index) => {
+        frames: paths.reduce((acc, path, index) => {
             const { x, y, width: w, height: h } = items[index];
-            return {
+            acc[path] = {
                 frame: {
                     x,
                     y,
@@ -76,7 +76,8 @@ module.exports = async (paths, userOptions) => {
                     h,
                 },
             };
-        }),
+            return acc;
+        }, {}),
     };
 
     const buffer = canvas.toBuffer(`image/${options.imageFormat}`);

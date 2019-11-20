@@ -14,6 +14,14 @@ const run = async (cli) => {
         }
     };
 
+    if (!input.length) {
+        cli.showHelp();
+        return;
+    }
+
+    const startingWD = process.cwd();
+    process.chdir(flags.cwd);
+
     const paths = input.reduce((acc, val) => {
         if (hasMagic(val)) {
             return acc.concat(sync(val, {
@@ -25,21 +33,20 @@ const run = async (cli) => {
         return acc;
     }, []);
 
-    if (!paths.length) {
-        cli.showHelp();
-        return;
-    }
+    log(`Packing ${paths.length} files ...`);
 
     const { json, buffer } = await spritesheet(paths, flags);
-
-    mkdirSync(flags.path, {
-        recursive: true,
-    });
 
     const imagePath = `${flags.path}${sep}${flags.name}.${flags.imageFormat}`;
     const jsonPath = `${flags.path}${sep}${flags.name}.json`;
 
     json.meta.image = relative(dirname(jsonPath), imagePath);
+
+    process.chdir(startingWD);
+
+    mkdirSync(flags.path, {
+        recursive: true,
+    });
 
     writeFileSync(imagePath, buffer);
     log("✔️ Image created");
@@ -53,13 +60,14 @@ const cli = meow(`
         $ spritesheet <globPattern> [options]
 
     Options
-        --path, -p          Path where to output files  (default: ./)
-        --name, -n          Name for the files          (default: spritesheet)
-        --imageFormat, -f   Result image format         (default: png)
-        --silent, -s        Don't log success
+        --path, -p          Path where to output files      (default: ./)
+        --name, -n          Name for the files              (default: spritesheet)
+        --imageFormat, -f   Result image format             (default: png)
+        --cwd, -c           Base directory for all images   (default: ./)
+        --silent, -s        Don't log success               (default: false)
 
     Example
-        $ spritesheet src/images/*.png -p dist/assets -n icons
+        $ spritesheet *.png -cwd ./src/images/ --path ./dist/assets --name icons
 `, {
     flags: {
         path: {
@@ -76,6 +84,11 @@ const cli = meow(`
             alias: "f",
             type: "string",
             default: "png",
+        },
+        cwd: {
+            alias: "c",
+            type: "string",
+            default: "./",
         },
         silent: {
             alias: "s",
