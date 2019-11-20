@@ -2,6 +2,7 @@
 const { writeFileSync, mkdirSync } = require("fs");
 const { sep, relative, dirname } = require("path");
 const meow = require("meow");
+const { hasMagic, sync } = require("glob");
 const spritesheet = require(".");
 
 const run = async (cli) => {
@@ -13,7 +14,18 @@ const run = async (cli) => {
         }
     };
 
-    if (!input.length) {
+    const paths = input.reduce((acc, val) => {
+        if (hasMagic(val)) {
+            return acc.concat(sync(val, {
+                nodir: true,
+            }));
+        }
+
+        acc.push(val);
+        return acc;
+    }, []);
+
+    if (!paths.length) {
         cli.showHelp();
         return;
     }
