@@ -1,6 +1,6 @@
 {
     "name": "@pencil.js/spritesheet",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Pack some images into a spritesheet.",
     "main": "index.js",
     "bin": {
