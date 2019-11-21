@@ -9,11 +9,11 @@ const defaultOptions = {
 
 /**
  * @typedef {Object} Options
- * @prop {String} [imageFormat="png"] - Format of the output image (png or jpeg)
+ * @prop {String} [imageFormat="png"] - Format of the output image ("png" or "jpeg")
  */
 /**
  * Pack some images into a spritesheet.
- * @param {Array<String>} paths - List of path to the images
+ * @param {Array<String>} paths - List of paths to the images
  * @param {Options} [userOptions] - Some options
  * @returns {Promise<{json: Object, buffer: Buffer}>}
  */
@@ -80,10 +80,10 @@ module.exports = async (paths, userOptions) => {
         }, {}),
     };
 
-    const buffer = canvas.toBuffer(`image/${options.imageFormat}`);
+    const image = canvas.toBuffer(`image/${options.imageFormat}`);
 
     return {
         json,
-        buffer,
+        image,
     };
 };

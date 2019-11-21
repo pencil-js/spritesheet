@@ -5,11 +5,11 @@ test("main", async (t) => {
     const fixtures = "./test/fixtures/";
     const files = [`${fixtures}clay.png`, `${fixtures}shell.png`, `${fixtures}wood.png`];
 
-    const { json, buffer } = await spritesheet(files);
+    const { json, image } = await spritesheet(files);
 
-    t.is(json.frames.length, files.length);
+    t.deepEqual(Object.keys(json.frames), files);
     t.not(json.meta, undefined);
-    t.not(buffer, undefined);
+    t.true(image instanceof Buffer);
 
     await t.throwsAsync(() => spritesheet());
     await t.throwsAsync(() => spritesheet([]));

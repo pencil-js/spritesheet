@@ -35,7 +35,7 @@ const run = async (cli) => {
 
     log(`Packing ${paths.length} files ...`);
 
-    const { json, buffer } = await spritesheet(paths, flags);
+    const { json, image } = await spritesheet(paths, flags);
 
     const imagePath = `${flags.path}${sep}${flags.name}.${flags.imageFormat}`;
     const jsonPath = `${flags.path}${sep}${flags.name}.json`;
@@ -48,7 +48,7 @@ const run = async (cli) => {
         recursive: true,
     });
 
-    writeFileSync(imagePath, buffer);
+    writeFileSync(imagePath, image);
     log("✔️ Image created");
 
     writeFileSync(jsonPath, JSON.stringify(json));
