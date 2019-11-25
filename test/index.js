@@ -7,9 +7,8 @@ test("main", async (t) => {
 
     const { json, image } = await spritesheet(files);
 
-    t.deepEqual(Object.keys(json.frames), files);
-    t.not(json.meta, undefined);
-    t.true(image instanceof Buffer);
+    t.snapshot(json);
+    t.snapshot(image);
 
     await t.throwsAsync(() => spritesheet());
     await t.throwsAsync(() => spritesheet([]));
