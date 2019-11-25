@@ -14,19 +14,19 @@ const defaultOptions = {
 /**
  * Pack some images into a spritesheet.
  * @param {Array<String>} paths - List of paths to the images
- * @param {Options} [userOptions] - Some options
+ * @param {Options} [options] - Some options
  * @returns {Promise<{json: Object, buffer: Buffer}>}
  */
-module.exports = async (paths, userOptions) => {
-    const options = {
+module.exports = async (paths, options) => {
+    const UserOptions = {
         ...defaultOptions,
-        ...userOptions,
+        ...options,
     };
 
     const supportedFormat = ["png", "jpeg"];
-    if (!supportedFormat.includes(options.imageFormat)) {
+    if (!supportedFormat.includes(UserOptions.imageFormat)) {
         const supported = JSON.stringify(supportedFormat);
-        throw new Error(`imageFormat should only be one of ${supported}, but "${options.imageFormat}" was given.`);
+        throw new Error(`imageFormat should only be one of ${supported}, but "${UserOptions.imageFormat}" was given.`);
     }
 
     if (!paths || !paths.length) {
@@ -80,7 +80,7 @@ module.exports = async (paths, userOptions) => {
         }, {}),
     };
 
-    const image = canvas.toBuffer(`image/${options.imageFormat}`);
+    const image = canvas.toBuffer(`image/${UserOptions.imageFormat}`);
 
     return {
         json,
