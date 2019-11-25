@@ -45,22 +45,6 @@ You can specify some options on the second argument.
 |json |`Object` |All data related to the spritesheet |
 |image |`Buffer` |The result image as a buffer |
 
-## CLI
-
-    spritesheet <files> [<options>]
-
-### Options
-
-    --path, -p          Path where to output files      (default: ./)
-    --name, -n          Name for the files              (default: spritesheet)
-    --imageFormat, -f   Result image format             (default: png)
-    --cwd, -c           Base directory for all images   (default: ./)
-    --silent, -s        Don't log success               (default: false)
-
-### Example
-
-    $ spritesheet *.png -cwd ./src/images/ --path ./dist/assets --name icons
-
 ## License
 
 [MIT](license)
