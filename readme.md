@@ -2,7 +2,7 @@
 
 [![Package version](https://flat.badgen.net/npm/v/@pencil.js/spritesheet)](https://www.npmjs.com/package/@pencil.js/spritesheet)
 
-Pack a set of images into a single spritesheet along its json description file.
+Pack a set of images into a single spritesheet along its json description file. ([CLI version](https://github.com/pencil-js/spritesheet-cli))
 
 ## Install
 
