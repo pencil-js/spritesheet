@@ -15,22 +15,29 @@ const spritesheet = require("@pencil.js/spritesheet");
 
 // List of files to pack
 const files = ["image1.png", "image2.png", "image3.png"];
+const options = {
+    imageFormat: "png",
+};
 // Call the async function and extract the json and image values
-const { json, image } = await spritesheet(files);
+(async () => {
+    const { json, image } = await spritesheet(files, options);
+    // Write the files
+    writeFileSync("example.png", image);
+    writeFileSync("example.json", JSON.stringify(json));
+})();
 ```
 
 ## Documentation
 
 ### `spritesheet(files, [options])`
-#### args
 The methods accept two arguments.
 
 | Name | Type | Default | Comment |
 | --- | --- | --- | --- |
 |files |`Array<String>` |required |List of paths to the images |
-|options |`Object` | `{ imageFormat: "png" }` |Some options |
+|options |`Object` |(see below) |Some options |
 
-##### options
+##### `options`
 You can specify some options on the second argument.
 
 | Name | Type | Default | Comment |
@@ -42,7 +49,7 @@ You can specify some options on the second argument.
 
 | Name | Type | Comment |
 | --- | --- | --- |
-|json |`Object` |All data related to the spritesheet |
+|json |`Object` |All data related to the spritesheet ([example](test/snapshots/index.js.md#main)) |
 |image |`Buffer` |The result image as a buffer |
 
 ## License
