@@ -14,14 +14,14 @@ Pack a set of images into a single spritesheet along its json description file. 
 const spritesheet = require("@pencil.js/spritesheet");
 
 // List of files to pack
-const files = ["image1.png", "image2.png", "image3.png"];
+const files = ["image1.png", "image2.jpg", "image3.gif"];
 const options = {
-    imageFormat: "png",
+    outputFormat: "png",
 };
 // Call the async function and extract the json and image values
 (async () => {
     const { json, image } = await spritesheet(files, options);
-    // Write the files
+    // Write the files (for example)
     writeFileSync("example.png", image);
     writeFileSync("example.json", JSON.stringify(json));
 })();
@@ -42,7 +42,7 @@ You can specify some options on the second argument.
 
 | Name | Type | Default | Comment |
 | --- | --- | --- | --- |
-|imageFormat |`String` |`"png"` |Format of the output image (`"png"` or `"jpeg"`) |
+|outputFormat |`String` |`"png"` |Format of the output image (`"png"` or `"jpeg"`) |
 
 #### returns
 `spritesheet` returns a `Promise` for an `Object` containing a `json` and `image` field.

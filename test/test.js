@@ -16,6 +16,6 @@ test("main", async (t) => {
     await t.throwsAsync(() => spritesheet(["fail"]));
 
     await t.throwsAsync(() => spritesheet([`${fixtures}clay.png`], {
-        imageFormat: "what",
+        outputFormat: "what",
     }));
 });

@@ -4,12 +4,14 @@ const pack = require("bin-pack");
 const { homepage, version } = require("./package.json");
 
 const defaultOptions = {
-    imageFormat: "png",
+    outputFormat: "png",
+    margin: 1,
+    crop: false, // TODO
 };
 
 /**
  * @typedef {Object} Options
- * @prop {String} [imageFormat="png"] - Format of the output image ("png" or "jpeg")
+ * @prop {String} [outputFormat="png"] - Format of the output image ("png" or "jpeg")
  */
 /**
  * Pack some images into a spritesheet.
@@ -18,15 +20,15 @@ const defaultOptions = {
  * @returns {Promise<{json: Object, buffer: Buffer}>}
  */
 module.exports = async (paths, options) => {
-    const UserOptions = {
+    const { outputFormat, margin } = {
         ...defaultOptions,
         ...options,
     };
 
     const supportedFormat = ["png", "jpeg"];
-    if (!supportedFormat.includes(UserOptions.imageFormat)) {
+    if (!supportedFormat.includes(outputFormat)) {
         const supported = JSON.stringify(supportedFormat);
-        throw new Error(`imageFormat should only be one of ${supported}, but "${UserOptions.imageFormat}" was given.`);
+        throw new Error(`outputFormat should only be one of ${supported}, but "${outputFormat}" was given.`);
     }
 
     if (!paths || !paths.length) {
@@ -34,7 +36,6 @@ module.exports = async (paths, options) => {
     }
 
     const loads = paths.map(path => loadImage(path));
-
     const images = await Promise.all(loads);
 
     const { items, width, height } = pack(images);
@@ -80,7 +81,7 @@ module.exports = async (paths, options) => {
         }, {}),
     };
 
-    const image = canvas.toBuffer(`image/${UserOptions.imageFormat}`);
+    const image = canvas.toBuffer(`image/${outputFormat}`);
 
     return {
         json,
