@@ -7,8 +7,8 @@ test("main", async (t) => {
 
     const { json, image } = await spritesheet(files);
 
-    t.snapshot(json);
-    t.snapshot(image);
+    t.snapshot(json, "JSON data");
+    t.snapshot(image, "Image buffer");
 
     await t.throwsAsync(() => spritesheet());
     await t.throwsAsync(() => spritesheet([]));
