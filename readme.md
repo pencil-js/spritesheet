@@ -52,6 +52,23 @@ You can specify some options on the second argument.
 |json |`Object` |All data related to the spritesheet ([example](test/snapshots/index.js.md#main)) |
 |image |`Buffer` |The result image as a buffer |
 
+##### JSON
+The returned JSON file is composed of two parts:
+ - `meta` - Global data about the generated file
+ - `frames` - Set of all frames/spites with path as key
+
+Each frames gives data about itself:
+ - `frame` - The `x`, `y` position on the whole image and `w`, `h` for the size
+ - `rotated` - Tell is the sprite have been rotated
+ - `trimmed` - Tell is the sprite have been cropped
+ - `spriteSourceSize` - The relative `x`, `y` position and `w`, `h` size
+ - `sourceSize` - The original `w`, `h` size
+
+## Related
+
+Want to display your generated spritesheet easily on a browser canvas ?
+Checkout [Pencil.js](https://github.com/pencil-js/pencil.js/tree/master/modules/sprite) the nice 2D drawing library.
+
 ## License
 
 [MIT](license)
