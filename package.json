@@ -31,7 +31,8 @@
     "homepage": "https://github.com/pencil-js/spritesheet",
     "dependencies": {
         "bin-pack": "^1.0.2",
-        "canvas": "^2.6.0"
+        "canvas": "^2.6.1",
+        "crop-node": "^1.0.0"
     },
     "devDependencies": {
         "@gmartigny/eslint-config": "^1.3.1",

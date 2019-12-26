@@ -1,4 +1,5 @@
 const { createCanvas, loadImage } = require("canvas");
+const cropping = require("crop-node");
 const pack = require("bin-pack");
 
 const { homepage, version } = require("./package.json");
@@ -6,12 +7,14 @@ const { homepage, version } = require("./package.json");
 const defaultOptions = {
     outputFormat: "png",
     margin: 1,
-    crop: false, // TODO
+    crop: true,
 };
 
 /**
  * @typedef {Object} Options
  * @prop {String} [outputFormat="png"] - Format of the output image ("png" or "jpeg")
+ * @prop {Number} [margin=1] - Added pixels between sprites
+ * @prop {Boolean} [crop=true] - Cut transparent pixels around sprites
  */
 /**
  * Pack some images into a spritesheet.
@@ -20,10 +23,14 @@ const defaultOptions = {
  * @returns {Promise<{json: Object, buffer: Buffer}>}
  */
 module.exports = async (paths, options) => {
-    const { outputFormat, margin } = {
+    const { outputFormat, margin, crop } = {
         ...defaultOptions,
         ...options,
     };
+
+    if (!paths || !paths.length) {
+        throw new Error("No file given.");
+    }
 
     const supportedFormat = ["png", "jpeg"];
     if (!supportedFormat.includes(outputFormat)) {
@@ -31,21 +38,37 @@ module.exports = async (paths, options) => {
         throw new Error(`outputFormat should only be one of ${supported}, but "${outputFormat}" was given.`);
     }
 
-    if (!paths || !paths.length) {
-        throw new Error("No file given.");
-    }
-
     const loads = paths.map(path => loadImage(path));
     const images = await Promise.all(loads);
 
-    const { items, width, height } = pack(images);
+    const data = await Promise.all(images.map(async (source) => {
+        const cropped = crop ? await cropping(source.src, {
+            detectOnly: true,
+        }) : {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+        };
+        return {
+            width: (source.width - cropped.left - cropped.right) + margin,
+            height: (source.height - cropped.top - cropped.bottom) + margin,
+            source,
+            cropped,
+        };
+    }));
 
-    const canvas = createCanvas(width, height);
+    const { items, width, height } = pack(data);
+
+    const canvas = createCanvas(width + margin, height + margin);
     const context = canvas.getContext("2d");
 
-    items.forEach(({ x, y, item }) => context.drawImage(item, x, y));
+    items.forEach(({ x, y, item }) => {
+        context.drawImage(item.source, x - item.cropped.left + margin, y - item.cropped.top + margin);
+    });
 
     const json = {
+        // Global data about the generated file
         meta: {
             app: homepage,
             version,
@@ -55,30 +78,34 @@ module.exports = async (paths, options) => {
             },
             scale: 1,
         },
-        frames: paths.reduce((acc, path, index) => {
-            const { x, y, width: w, height: h } = items[index];
-            acc[path] = {
-                frame: {
-                    x,
-                    y,
-                    w,
-                    h,
-                },
-                rotated: false,
-                trimmed: false,
-                spriteSourceSize: {
-                    x: 0,
-                    y: 0,
-                    w,
-                    h,
-                },
-                sourceSize: {
-                    w,
-                    h,
-                },
-            };
-            return acc;
-        }, {}),
+        frames: items
+            .sort((a, b) => a.item.source.src.localeCompare(b.item.source.src))
+            .reduce((acc, { x, y, width: w, height: h, item }) => {
+                acc[item.source.src] = {
+                    // Position and size in the spritesheet
+                    frame: {
+                        x: x + margin,
+                        y: y + margin,
+                        w: w - margin,
+                        h: h - margin,
+                    },
+                    rotated: false,
+                    trimmed: Object.values(item.cropped).some(value => value > 0),
+                    // Relative position and size of the content
+                    spriteSourceSize: {
+                        x: item.cropped.left,
+                        y: item.cropped.top,
+                        w: w - margin,
+                        h: h - margin,
+                    },
+                    // File image sizes
+                    sourceSize: {
+                        w: item.source.width,
+                        h: item.source.height,
+                    },
+                };
+                return acc;
+            }, {}),
     };
 
     const image = canvas.toBuffer(`image/${outputFormat}`);

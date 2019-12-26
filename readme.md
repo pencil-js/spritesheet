@@ -43,6 +43,8 @@ You can specify some options on the second argument.
 | Name | Type | Default | Comment |
 | --- | --- | --- | --- |
 |outputFormat |`String` |`"png"` |Format of the output image (`"png"` or `"jpeg"`) |
+|margin |`Number` |`1` |Added pixels between sprites (can prevent pixels leaking to adjacent sprite) |
+|crop |`Boolean` |`true` |Cut transparent pixels around sprites |
 
 #### returns
 `spritesheet` returns a `Promise` for an `Object` containing a `json` and `image` field.
