@@ -1,4 +1,4 @@
-# @pencil.js/spritesheet
+# ![Spritesheet Logo](media/spritesheet-logo.png)
 
 [![Package version](https://flat.badgen.net/npm/v/@pencil.js/spritesheet)](https://www.npmjs.com/package/@pencil.js/spritesheet)
 
