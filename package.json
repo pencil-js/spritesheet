@@ -9,12 +9,17 @@
         "pack",
         "json"
     ],
-    "main": "index.js",
+    "main": "index.mjs",
     "scripts": {
         "test": "ava"
     },
     "eslintConfig": {
         "extends": "@gmartigny/eslint-config"
+    },
+    "ava": {
+        "require": [
+            "esm"
+        ]
     },
     "repository": {
         "type": "git",

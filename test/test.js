@@ -1,5 +1,5 @@
-const test = require("ava");
-const spritesheet = require("..");
+import test from "ava";
+import spritesheet from "..";
 
 test("main", async (t) => {
     const fixtures = "./test/fixtures/";

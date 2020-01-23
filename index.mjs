@@ -1,8 +1,11 @@
-const { createCanvas, loadImage } = require("canvas");
-const cropping = require("crop-node");
-const pack = require("bin-pack");
+import Canvas from "canvas";
+import cropping from "detect-edges";
+import pack from "bin-pack";
+import pkg from "./package.json";
 
-const { homepage, version } = require("./package.json");
+const { homepage, version } = pkg;
+
+const { loadImage, createCanvas } = Canvas;
 
 const defaultOptions = {
     outputFormat: "png",
@@ -22,7 +25,7 @@ const defaultOptions = {
  * @param {Options} [options] - Some options
  * @returns {Promise<{json: Object, buffer: Buffer}>}
  */
-module.exports = async (paths, options) => {
+export default async (paths, options) => {
     const { outputFormat, margin, crop } = {
         ...defaultOptions,
         ...options,
