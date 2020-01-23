@@ -1,6 +1,7 @@
 # ![Spritesheet Logo](media/spritesheet-logo.png)
 
 [![Package version](https://flat.badgen.net/npm/v/@pencil.js/spritesheet)](https://www.npmjs.com/package/@pencil.js/spritesheet)
+[![Package size](https://badgen.net/bundlephobia/minzip/@pencil.js/spritesheet)](https://bundlephobia.com/result?p=@pencil.js/spritesheet)
 
 Pack a set of images into a single spritesheet along its json description file. ([CLI version](https://github.com/pencil-js/spritesheet-cli))
 
@@ -61,7 +62,7 @@ The returned JSON file is composed of two parts:
 
 Each frames gives data about itself:
  - `frame` - The `x`, `y` position on the whole image and `w`, `h` for the size
- - `rotated` - Tell is the sprite have been rotated
+ - `rotated` - Tell is the sprite have been rotated (not yet supported)
  - `trimmed` - Tell is the sprite have been cropped
  - `spriteSourceSize` - The relative `x`, `y` position and `w`, `h` size
  - `sourceSize` - The original `w`, `h` size
