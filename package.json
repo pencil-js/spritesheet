@@ -37,11 +37,12 @@
     "dependencies": {
         "bin-pack": "^1.0.2",
         "canvas": "^2.6.1",
-        "crop-node": "^1.0.0"
+        "detect-edges": "^1.0.1"
     },
     "devDependencies": {
-        "@gmartigny/eslint-config": "^1.3.1",
-        "ava": "^2.4.0",
-        "eslint": "^6.6.0"
+        "@gmartigny/eslint-config": "^1.4.2",
+        "ava": "^3.0.0",
+        "eslint": "^6.8.0",
+        "esm": "^3.2.25"
     }
 }

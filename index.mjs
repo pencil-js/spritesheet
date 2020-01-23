@@ -44,18 +44,24 @@ export default async (paths, options) => {
     const loads = paths.map(path => loadImage(path));
     const images = await Promise.all(loads);
 
+    const playground = createCanvas();
+    const playgroundContext = playground.getContext("2d");
+
     const data = await Promise.all(images.map(async (source) => {
-        const cropped = crop ? await cropping(source.src, {
-            detectOnly: true,
-        }) : {
+        const { width, height } = source;
+        playground.width = width;
+        playground.height = height;
+        playgroundContext.drawImage(source, 0, 0);
+
+        const cropped = crop ? await cropping(playground) : {
             top: 0,
             right: 0,
             bottom: 0,
             left: 0,
         };
         return {
-            width: (source.width - cropped.left - cropped.right) + margin,
-            height: (source.height - cropped.top - cropped.bottom) + margin,
+            width: (width - cropped.left - cropped.right) + margin,
+            height: (height - cropped.top - cropped.bottom) + margin,
             source,
             cropped,
         };
