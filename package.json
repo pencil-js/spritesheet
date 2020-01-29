@@ -34,6 +34,7 @@
         "url": "https://github.com/pencil-js/spritesheet/issues"
     },
     "homepage": "https://github.com/pencil-js/spritesheet",
+    "funding": "https://github.com/pencil-js/spritesheet?sponsor=1",
     "dependencies": {
         "bin-pack": "^1.0.2",
         "canvas": "^2.6.1",
