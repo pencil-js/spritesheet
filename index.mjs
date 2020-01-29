@@ -31,22 +31,26 @@ export default async (paths, options) => {
         ...options,
     };
 
+    // Check input path
     if (!paths || !paths.length) {
         throw new Error("No file given.");
     }
 
+    // Check outputFormat
     const supportedFormat = ["png", "jpeg"];
     if (!supportedFormat.includes(outputFormat)) {
         const supported = JSON.stringify(supportedFormat);
         throw new Error(`outputFormat should only be one of ${supported}, but "${outputFormat}" was given.`);
     }
 
+    // Load all images
     const loads = paths.map(path => loadImage(path));
     const images = await Promise.all(loads);
 
     const playground = createCanvas();
     const playgroundContext = playground.getContext("2d");
 
+    // Crop all image
     const data = await Promise.all(images.map(async (source) => {
         const { width, height } = source;
         playground.width = width;
@@ -67,15 +71,18 @@ export default async (paths, options) => {
         };
     }));
 
+    // Pack images
     const { items, width, height } = pack(data);
 
     const canvas = createCanvas(width + margin, height + margin);
     const context = canvas.getContext("2d");
 
+    // Draw all images on the destination canvas
     items.forEach(({ x, y, item }) => {
         context.drawImage(item.source, x - item.cropped.left + margin, y - item.cropped.top + margin);
     });
 
+    // Write JSON
     const json = {
         // Global data about the generated file
         meta: {
@@ -117,6 +124,7 @@ export default async (paths, options) => {
             }, {}),
     };
 
+    // Write image
     const image = canvas.toBuffer(`image/${outputFormat}`);
 
     return {
