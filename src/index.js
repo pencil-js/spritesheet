@@ -93,6 +93,7 @@ export default async (paths, options) => {
         meta: {
             app: homepage,
             version,
+            image: outputName,
             size: {
                 w: width,
                 h: height,

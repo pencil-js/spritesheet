@@ -1,5 +1,5 @@
 import test from "ava";
-import spritesheet from "..";
+import spritesheet from "../src/index.js";
 
 test("main", async (t) => {
     const fixtures = "./test/fixtures/";
