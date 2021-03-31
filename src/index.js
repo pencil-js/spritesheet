@@ -13,13 +13,15 @@ const defaultOptions = {
     outputFormat: "png",
     margin: 1,
     crop: true,
+    outputName: "spritesheet.png",
 };
 
 /**
  * @typedef {Object} Options
  * @prop {String} [outputFormat="png"] - Format of the output image ("png" or "jpeg")
- * @prop {Number} [margin=1] - Added pixels between sprites
+ * @prop {Number} [margin=1] - Added pixels between sprites (can prevent pixels leaking to adjacent sprite)
  * @prop {Boolean} [crop=true] - Cut transparent pixels around sprites
+ * @prop {String} [outputName="spritesheet.png"] - Name of the image file (for reference in the JSON file)
  */
 /**
  * Pack some images into a spritesheet.
@@ -28,7 +30,7 @@ const defaultOptions = {
  * @returns {Promise<{json: Object, buffer: Buffer}>}
  */
 export default async (paths, options) => {
-    const { outputFormat, margin, crop } = {
+    const { outputFormat, margin, crop, outputName } = {
         ...defaultOptions,
         ...options,
     };

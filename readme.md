@@ -44,6 +44,7 @@ You can specify some options on the second argument.
 | Name | Type | Default | Comment |
 | --- | --- | --- | --- |
 |outputFormat |`String` |`"png"` |Format of the output image (`"png"` or `"jpeg"`) |
+|outputName |`String` |`"spritesheet.png"` |Name of the image file (for reference in the JSON file) |
 |margin |`Number` |`1` |Added pixels between sprites (can prevent pixels leaking to adjacent sprite) |
 |crop |`Boolean` |`true` |Cut transparent pixels around sprites |
 
