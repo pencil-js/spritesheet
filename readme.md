@@ -1,7 +1,6 @@
 # ![Spritesheet Logo](media/spritesheet-logo.png)
 
-[![Package version](https://flat.badgen.net/npm/v/@pencil.js/spritesheet)](https://www.npmjs.com/package/@pencil.js/spritesheet)
-[![Package size](https://badgen.net/bundlephobia/minzip/@pencil.js/spritesheet)](https://bundlephobia.com/result?p=@pencil.js/spritesheet)
+[![Package size](https://flat.badgen.net/bundlephobia/minzip/@pencil.js/spritesheet)](https://bundlephobia.com/result?p=@pencil.js/spritesheet)
 
 Pack a set of images into a single spritesheet along its json description file. ([CLI version](https://github.com/pencil-js/spritesheet-cli))
 
@@ -12,7 +11,8 @@ Pack a set of images into a single spritesheet along its json description file. 
 ## Usage
 
 ```js
-const spritesheet = require("@pencil.js/spritesheet");
+import spritesheet from "@pencil.js/spritesheet";
+import { writeFileSync } from "fs";
 
 // List of files to pack
 const files = ["image1.png", "image2.jpg", "image3.gif"];
@@ -23,8 +23,8 @@ const options = {
 (async () => {
     const { json, image } = await spritesheet(files, options);
     // Write the files (for example)
-    writeFileSync("example.png", image);
-    writeFileSync("example.json", JSON.stringify(json));
+    writeFileSync("spritesheet.png", image);
+    writeFileSync("spritesheet.json", JSON.stringify(json));
 })();
 ```
 
