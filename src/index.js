@@ -1,9 +1,11 @@
 import Canvas from "canvas";
 import cropping from "detect-edges";
 import pack from "bin-pack";
-import pkg from "./package.json";
-
-const { homepage, version } = pkg;
+// FIXME: can read JSON module when supported
+import { readFile } from "fs/promises";
+// import pkg from "../package.json";
+//
+// const { homepage, version } = pkg;
 
 const { loadImage, createCanvas } = Canvas;
 
@@ -42,6 +44,9 @@ export default async (paths, options) => {
         const supported = JSON.stringify(supportedFormat);
         throw new Error(`outputFormat should only be one of ${supported}, but "${outputFormat}" was given.`);
     }
+
+    // FIXME: can read JSON module when supported
+    const { homepage, version } = JSON.parse(await readFile("package.json"));
 
     // Load all images
     const loads = paths.map(path => loadImage(path));
