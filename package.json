@@ -1,6 +1,6 @@
 {
     "name": "@pencil.js/spritesheet",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "description": "Pack some images into a spritesheet.",
     "keywords": [
         "spritesheet",
@@ -14,7 +14,9 @@
     "exports": {
         "import": "./src/index.js"
     },
-    "files": ["src"],
+    "files": [
+        "src"
+    ],
     "type": "module",
     "scripts": {
         "test": "ava"
@@ -35,7 +37,9 @@
         "url": "https://github.com/pencil-js/spritesheet/issues"
     },
     "homepage": "https://github.com/pencil-js/spritesheet",
-    "funding": "https://github.com/pencil-js/spritesheet?sponsor=1",
+    "funding": {
+        "url": "https://github.com/pencil-js/spritesheet?sponsor=1"
+    },
     "dependencies": {
         "bin-pack": "^1.0.2",
         "canvas": "^2.7.0",
