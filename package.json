@@ -9,17 +9,18 @@
         "pack",
         "json"
     ],
-    "main": "index.mjs",
+    "main": "./src/index.js",
+    "module": "./src/index.js",
+    "exports": {
+        "import": "./src/index.js"
+    },
+    "files": ["src"],
+    "type": "module",
     "scripts": {
         "test": "ava"
     },
     "eslintConfig": {
         "extends": "@gmartigny/eslint-config"
-    },
-    "ava": {
-        "require": [
-            "esm"
-        ]
     },
     "repository": {
         "type": "git",
@@ -37,13 +38,12 @@
     "funding": "https://github.com/pencil-js/spritesheet?sponsor=1",
     "dependencies": {
         "bin-pack": "^1.0.2",
-        "canvas": "^2.6.1",
+        "canvas": "^2.7.0",
         "detect-edges": "^1.0.1"
     },
     "devDependencies": {
-        "@gmartigny/eslint-config": "^1.4.2",
-        "ava": "^3.0.0",
-        "eslint": "^6.8.0",
-        "esm": "^3.2.25"
+        "@gmartigny/eslint-config": "^1.6.0",
+        "ava": "^3.15.0",
+        "eslint": "^7.23.0"
     }
 }
