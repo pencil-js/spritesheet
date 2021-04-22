@@ -48,7 +48,7 @@ export default async (paths, options) => {
     }
 
     // FIXME: can read JSON module when supported
-    const { homepage, version } = JSON.parse(await readFile("package.json"));
+    const { homepage, version } = JSON.parse(await readFile(new URL("../package.json", import.meta.url)));
 
     // Load all images
     const loads = paths.map(path => loadImage(path));
